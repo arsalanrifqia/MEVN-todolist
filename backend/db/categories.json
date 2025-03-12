@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "name": "Pekerjaan"
+  },
+  {
+    "id": "2",
+    "name": "Belajar"
+  },
+  {
+    "id": "3",
+    "name": "Olahraga"
+  },
+  {
+    "id": "4",
+    "name": "Hobi"
+  },
+  {
+    "id": "5",
+    "name": "Keluarga"
+  },
+  {
+    "id": "6",
+    "name": "Keuangan"
+  },
+  {
+    "id": "7",
+    "name": "Kesehatan"
+  },
+  {
+    "id": "8",
+    "name": "Sosial"
+  }
+]
