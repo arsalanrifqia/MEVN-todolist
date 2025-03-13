@@ -1,4 +1,4 @@
-# CLOUD COMPUTING
+# Backend
 
 ## Teknologi yang dipakai ##
 Project is created with:
@@ -21,7 +21,7 @@ Project is created with:
 5. buat collection dengan nama `categories`
 6. kemudian import data dari `db/categories.json`
 
-# ENDPOINT
+# Endpoint
 * GET http://localhost:5000/ → Landing Page
 * POST http://localhost:5000/register → Tambah user/ Register
 * POST http://localhost:5000/login → Login
