@@ -238,5 +238,13 @@ Authorization: Bearer <token>
 
 # FRONTEND
 
+   ```sh
+   npm install
+   ```
+
+   ```sh
+   npm run dev
+   ```
+
 
 
