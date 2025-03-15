@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import TodoList from "../views/TodoList.vue";
 import Dashboard from "../views/Dashboard.vue";
 
 const routes = [
     { path: "/", component: Login, meta: { requiresGuest: true } },
     { path: "/register", component: Register, meta: { requiresGuest: true } },
+    { path: "/todo", component: TodoList, meta: { requiresAuth: true } },
     { path: "/dashboard", component: Dashboard, meta: { requiresAuth: true } },
 ];
 
