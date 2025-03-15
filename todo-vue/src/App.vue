@@ -1,41 +1,36 @@
 <template>
   <div id="app">
-    <header>
-      <h1>Welcome to My Vue App</h1>
-    </header>
-    <main>
-      <button @click="login">Login</button>
-    </main>
+    <nav>
+      <router-link v-if="!isLoggedIn" to="/">Login</router-link>
+      <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
+      <router-link v-if="isLoggedIn" to="/dashboard">Dashboard</router-link>
+      <button v-if="isLoggedIn" @click="logout">Logout</button>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
 
-<script setup>
-const login = () => {
-  alert("Login button clicked!");
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return !!localStorage.getItem("token"); // Cek apakah token ada
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("token"); // Hapus token
+      this.$router.push("/"); // Redirect ke login
+    },
+  },
 };
 </script>
 
 <style>
-#app {
-  text-align: center;
-  padding: 50px;
-  background-color: white;
-  max-width: 600px;
-  margin: auto;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-header h1 {
-  color: #333;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: blue;
-  color: white;
-  border: none;
-  cursor: pointer;
+nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 </style>
