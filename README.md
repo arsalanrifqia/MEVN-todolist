@@ -6,6 +6,12 @@
 
 Backend untuk proyek MEVN menggunakan Node.js, Express, dan MongoDB.
 
+versi:
+* Node version: v18.13.0
+* NPM version: V8.19.3
+* Express.js
+* MongoDb
+
 ## Instalasi dan Persiapan Database
 
 1. **Instal MongoDB**
@@ -21,9 +27,9 @@ Backend untuk proyek MEVN menggunakan Node.js, Express, dan MongoDB.
    ```sh
    mongo
    ```
-   Buat database `todo_list`:
+   Buat database `todo_db`:
    ```sh
-   use todo_list
+   use todo_db
    ```
    Buat collections:
    ```sh
@@ -44,13 +50,16 @@ Backend untuk proyek MEVN menggunakan Node.js, Express, dan MongoDB.
    ```sh
    cd backend
    ```
+2. **Buka file `.env.example` dan ubah variabel sesuai keinginan anda (opsional)**
 
-2. **Install Dependencies**
+3. **Dan simpan file `.env.example` dengan nama `.env`**
+
+4. **Install Dependencies**
    ```sh
    npm install
    ```
 
-3. **Jalankan Server**
+5. **Jalankan Server**
    ```sh
    npm start
    ```
@@ -74,7 +83,6 @@ Backend untuk proyek MEVN menggunakan Node.js, Express, dan MongoDB.
 - **Body:**
   ```json
   {
-    "name": "John Doe",
     "email": "johndoe@example.com",
     "password": "password123"
   }
@@ -82,12 +90,14 @@ Backend untuk proyek MEVN menggunakan Node.js, Express, dan MongoDB.
 - **Response:**
   ```json
   {
-    "token": "your-jwt-token"
+    "token": "jwt-token-anda"
   }
   ```
 
 ### Akses CRUD Todo List
-Semua permintaan ke **Todo List API** harus menyertakan **Authorization Header** dengan token dari login.
+
+## API Endpoints
+Semua endpoint harus menyertakan **Authorization Header** dengan token dari login.
 
 - **Headers:**
   ```json
@@ -96,7 +106,135 @@ Semua permintaan ke **Todo List API** harus menyertakan **Authorization Header**
   }
   ```
 
-Sekarang backend siap digunakan! 🚀
+### 1. Membuat Task
+**Endpoint:**
+```
+POST /api/tasks
+```
+**Header:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+**Body:**
+```json
+{
+    "title": "Nama Task",
+    "description": "Deskripsi Task",
+    "status": "todo", // (opsional) Nilai: "todo", "in progress", "completed"
+    "due_date": "2025-03-20T00:00:00.000Z", // (opsional)
+    "category_id": "id-kategori", // (opsional)
+    "labels": ["id-label","id-label2"] // (opsional) bisa memilih lebih dari 1
+}
+```
+**Response:**
+```json
+{
+    "_id": "id-user",
+    "title": "Nama Task",
+    "description": "Deskripsi Task",
+    "status": "todo",
+    "due_date": "2025-03-20T00:00:00.000Z",
+    "category_id": "id-kategori",
+    "labels": ["id-label","id-label2"],
+    "created_at": "2025-03-10T08:00:00.000Z",
+    "updated_at": "2025-03-10T08:00:00.000Z"
+}
+```
+
+---
+### 2. Mendapatkan Semua Task Pengguna
+**Endpoint:**
+```
+GET /api/tasks
+```
+**Header:**
+```
+Authorization: Bearer <token>
+```
+**Response:**
+```json
+[
+    {
+        "_id": "id-task",
+        "user_id": "id-user",
+        "title": "Nama Task",
+        "description": "Deskripsi Task",
+        "status": "todo",
+        "due_date": "2025-03-20T00:00:00.000Z",
+        "category_id": "id-kategori",
+        "labels": ["id-label","id-label2"],
+        "created_at": "2025-03-10T08:00:00.000Z",
+        "updated_at": "2025-03-10T08:00:00.000Z"
+    }
+]
+```
+
+---
+### 3. Memperbarui Task
+**Endpoint:**
+```
+PUT /api/tasks/:id
+```
+**Header:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+**Body:**
+```json
+{
+    "title": "Nama Task Baru", // (opsional)
+    "description": "Deskripsi Task Baru", // (opsional)
+    "status": "todo", // (opsional)
+    "due_date": "2025-03-20T00:00:00.000Z", // (opsional)
+    "category_id": "id-kategori", // (opsional)
+    "labels": ["id-label","id-label2"] // (opsional) bisa memilih lebih dari 1
+}
+```
+**Response:**
+```json
+{
+    "_id": "id-task",
+    "user_id": "id-user",
+    "title": "Nama Task Baru",
+    "description": "Deskripsi Task Baru",
+    "status": "in progress",
+    "due_date": "2025-03-20T00:00:00.000Z",
+    "category_id": "id-kategori",
+    "labels": ["id-labels","id-label2"],
+    "created_at": "2025-03-10T08:00:00.000Z",
+    "updated_at": "2025-03-10T08:10:00.000Z"
+}
+```
+
+---
+### 4. Menghapus Task
+**Endpoint:**
+```
+DELETE /api/tasks/:id
+```
+**Header:**
+```
+Authorization: Bearer <token>
+```
+**Response:**
+```json
+{
+    "message": "Task berhasil dihapus"
+}
+```
+
+---
+## Error Handling
+| Kode | Pesan |
+|------|---------------------------------------------------|
+| 400  | Bad Request (Data tidak valid) |
+| 401  | Unauthorized (Token tidak valid atau tidak dikirim) |
+| 403  | Forbidden (Pengguna tidak berhak mengakses task ini) |
+| 404  | Not Found (Task tidak ditemukan) |
+| 500  | Internal Server Error |
+
 
 # FRONTEND
 
