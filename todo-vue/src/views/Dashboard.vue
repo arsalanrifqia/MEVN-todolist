@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <h2>📊 Dashboard</h2>
-    <p>Selamat datang di Dashboard!</p>
+    <p>Welcome </p>
     <button @click="logout" class="logout-btn">🚪 Logout</button>
   </div>
 </template>
