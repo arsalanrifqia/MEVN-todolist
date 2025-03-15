@@ -4,6 +4,7 @@
       <router-link v-if="!isLoggedIn" to="/">Login</router-link>
       <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
       <router-link v-if="isLoggedIn" to="/dashboard">Dashboard</router-link>
+      <router-link to="/todo">📝 To-Do List</router-link>
       <button v-if="isLoggedIn" @click="logout">Logout</button>
     </nav>
     <router-view></router-view>
